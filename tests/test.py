@@ -3,21 +3,18 @@ import urllib.request
 from nose.tools import *
 from main import Tester
 
-def test_file_exists(how_to_read_file):
-#this test checks that the filenames parsed are as expected
-    a='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt'
-    eq_(how_to_read_file(a)[0:3],"1000", "does not exist")
+
+def test_parse_file():
+    #this test checks that the filenames parsed are as expected
+    line='switch 857,894 through 920,932'
+    (cmd, x1, y1, x2, y2)=Tester.parse_uri(line)
+    eq_(cmd, "switch")
+    eq_(x1,857)
+    eq_(y1, 894)
+    eq_(x2, 920)
+    eq_(y2, 932)
     
-    """
-def test_instructions_within_file(self):
-#this test checks that the commands on, off and switch are in the file, idea is that 
-#we are looking at a good file
-    for line in main.uri:
-        a ="turn on"
-        b="turn off"
-        c="switch"
-        if  a or b or c in line:
-                ok_()
+"""Tester=
 
 def test_limit_lights_on(self.size, testerLED):
 #this test checks that the number of lights counted to be switched on is not greater than the grid size
