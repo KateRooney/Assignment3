@@ -7,7 +7,9 @@ setup(name="Assignment3",
      author="Kate Rooney",
      author_email="kate.rooney1@ucdconnect.ie",
      licence="none",
-     packages=['src'],
-     entry_points={'console_scripts':['assignment3=src.main:main']}
-     install_requires=['urllib.request','re', 'argparse'],
+     packages=['Assignment3'],
+     entry_points={
+         'console_scripts':['solve_led=Assignment3.src.main:main']
+                            }
+     (install_requires=['urllib.request','re', 'sys', 'nose',' argparse'],
       )

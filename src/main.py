@@ -3,7 +3,7 @@ import urllib.request
 import re
 
 class Tester:
-#this is the grid
+#this is the grid on which the lights are located, or the 2Darray
     def __init__(self):
         
         self.size =self.get_grid()
@@ -42,7 +42,7 @@ class Tester:
                     pass
 
     def testerLED(self):
-    #this is the count of lights on on the grid 
+    #this is the final count of lights on on the grid 
         count=0
         for row in range (0, self.size):
             for col in range (0, self.size):
@@ -50,19 +50,18 @@ class Tester:
                     count +=1
         print (count)    
         
-    def how_to_read_file(self,fname):
+    def how_to_read_file(self,filename):
     #this tells the program which method to read the file depending on the filename
     #one of two other commands will be called depending on filename
-        if fname.startswith('http'):
+        if filename.startswith('http'):
             return self.parse_uri()
         else:
             return self.parse_filename()
             
     def parse_uri(self):
         #this is called if the file starts with 'http' - file is parsed to give values for 
-        #command (cmd) and the co-ordinates of the lights, x1,y1 is the first light in the array
-        #to be affected and x2, y2 is the last light in the array to be affected  
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b_v2.txt"
+        #command (cmd) and the co-ordinates of the lights affected by that command
+        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
         for line in buffer.split('\n')[1:-1]:
@@ -78,9 +77,8 @@ class Tester:
     #or-negative-numeric-value-but-no-characters-or-m   
                             
     def get_grid(self):
-    # this parses the size of the grid. I should have included in the above but 
-    #don't have the coding skills to return this as part of that function without creating bugs         
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b_v2.txt"
+    # this parses the size of the grid.          
+        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
         for line in buffer.split('\n')[0:1]:
@@ -88,9 +86,8 @@ class Tester:
         return size
                     
     def parse_filename(self,filename):
-    #this is called if the file does not start with 'http' - file is parsed to give values for 
-    #command (cmd) and the co-ordinates of the lights, x1,y1 is the first light in the array
-    #to be affected and x2, y2 is the last light in the array to be affected       
+    #this is called if the file does not start with 'http', so the alternative way to open 
+    #the file if the file is not online      
         with open(filename) as f:      
             for line in f.split('\n')[1:-1]:
                 m=re.match('(.*) (\d+),(\d+) through (\d+),(\d+)', line)
@@ -129,13 +126,13 @@ class Tester:
         else:
             pass
    
-        """def get_arg():
+        def get_arg():
         #this parses from command line the argument - filename
-        parser=argparse.ArgumentParser()
-        parser.add_argument('--input', help='Tester help')
-        args=parser.parse_args()
-        filename=args.input
-        return filename"""
+            parser=argparse.ArgumentParser()
+            parser.add_argument('--input', help='Tester help')
+            args=parser.parse_args()
+            filename=args.input
+            return filename
 
 
 grid = Tester()

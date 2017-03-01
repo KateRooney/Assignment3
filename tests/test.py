@@ -3,31 +3,40 @@ import urllib.request
 from nose.tools import *
 from main import Tester
 
-
 def test_parse_file():
-    #this test checks that the filenames parsed are as expected
+    #this test checks that the commands and arguments parsed to the functions are as expected
     line='switch 857,894 through 920,932'
     (cmd, x1, y1, x2, y2)=Tester.parse_uri(line)
-    eq_(cmd, "switch")
-    eq_(x1,857)
-    eq_(y1, 894)
-    eq_(x2, 920)
-    eq_(y2, 932)
+    eq_(cmd, "switch", "cmd switch passes test")
+    eq_(x1,857, "x1 passes test")
+    eq_(y1, 894, "y1 passes test")
+    eq_(x2, 920, "x2 passes test")
+    eq_(y2, 932, "y2 passes test")
     
-"""Tester=
+def test_parse_mistake_with_file_cmd():
+    #this test checks that the commands and arguments parsed to the functions are as expected
+    line='swptch 857,894 through 920,932'
+    (cmd, x1, y1, x2, y2)=Tester.parse_uri(line)
+    eq_(cmd, "", "code should ignore this line")
+  
+def test_parse_negative_number_with_file_cmd():
+    #this test checks that the negative number in arguments is parsed to the functions as 0
+    tester=Tester(10)
+    tester.execute_command('turn on -5,0 through 0,4')
+    eq_(tester.count(),5)  
+    
+def test_parse_outside_range_as_inside_range():
+#this test check that co-ordinates greater than the grid's area are limited to the grid area
+    line='turn on 226,196 through 5999,390'
+    testert=Tester(1000)
+    (cmd, x1, y1, x2, y2)=Tester.execute_command(line)
+    eq_(x2, 999, "1000-1, 999 should be returned") 
 
-def test_limit_lights_on(self.size, testerLED):
-#this test checks that the number of lights counted to be switched on is not greater than the grid size
-    if testerLED<=Tester.size:
-        ok_()
-        
-def test_outside_range(self.size,x1,y1,x2,y2):
-#this test checks that the coordinates in the file are not bigger outside the sqare grid
-    maximum=main.self.size
-    if (x1<maximum) and (x2<maximum) and (y1<maximum) and (y2<maximum):
-        ok_() 
-
-def test_lights_turned_on(self,x1,x2,y1,y2):
-    for row in range (y1,y2+1):
-        for col in range (x1, x2+1):
-            self._size[row][col] =1"""
+def test_execute_command_illogical_cmd_array_sequence():
+#testing that more lights switched off than are on to begin with parses correctly
+    tester=Tester(10)
+    tester.execute_command('turn on 0,0 through 0,4')
+    tester.execute_command('turn off 0,0 through 0,7')
+    tester.execute_command('switch 0,0 through 0,4')
+    eq_(tester.count(),5)
+    
