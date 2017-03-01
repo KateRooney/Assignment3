@@ -18,7 +18,6 @@ class Tester:
                     self._size[row][col] =1
                 else:
                     pass
-#                 return turn_on
     
     def turn_off(self,x1,x2,y1,y2):
     #this is the second command that can be called on the grid, turn lights off
@@ -29,7 +28,6 @@ class Tester:
                     self._size[row][col] =0
                 else:
                     pass
-#                 return self.turn_off()
       
     def switch(self,x1,x2,y1,y2):
     #this is the second command that can be called on the grid, to switch the lights.
@@ -38,9 +36,11 @@ class Tester:
             for col in range (x1, x2+1):
                 if self._size[row][col] ==1:
                     self._size[row][col] =0
-                if self._size[row][col]==0:
+                elif self._size[row][col]==0:
                     self._size[row][col]=1
-#                     return self.switch()
+                else:
+                    pass
+
     def testerLED(self):
     #this is the count of lights on on the grid 
         count=0
@@ -62,7 +62,7 @@ class Tester:
         #this is called if the file starts with 'http' - file is parsed to give values for 
         #command (cmd) and the co-ordinates of the lights, x1,y1 is the first light in the array
         #to be affected and x2, y2 is the last light in the array to be affected  
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b.txt"
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
         for line in buffer.split('\n')[1:-1]:
@@ -77,15 +77,13 @@ class Tester:
     def get_size(self):
     # this parses the size of the grid. I should have included in the above but 
     #don't have the coding skills to return this as part of that function without creating bugs         
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b.txt"
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
-        size = None
         for line in buffer.split('\n')[0:1]:
             size = int(line)
         return size
                     
-    
     def parse_filename(self,filename):
     #this is called if the file does not start with 'http' - file is parsed to give values for 
     #command (cmd) and the co-ordinates of the lights, x1,y1 is the first light in the array
@@ -127,7 +125,6 @@ class Tester:
 #         args=parser.parse_args()
 #         filename=args.input
 #         return filename
-
 
 grid = Tester()
 grid.parse_uri()

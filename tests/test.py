@@ -1,18 +1,14 @@
 import sys
-import unitest
+import urllib.request
 from nose.tools import *
 from main import Tester
 
-def test_file_exists(self):
+def test_file_exists(how_to_read_file):
 #this test checks that the filenames parsed are as expected
     a='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt'
-    b='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_a.txt'
-    c='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b.txt'
-    d='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_c.txt'
-    e='http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_d.txt'
-    if main.uri == a or b or c or d or e:
-        ok_()
-
+    eq_(how_to_read_file(a)[0:3],"1000", "does not exist")
+    
+    """
 def test_instructions_within_file(self):
 #this test checks that the commands on, off and switch are in the file, idea is that 
 #we are looking at a good file
@@ -34,7 +30,7 @@ def test_outside_range(self.size,x1,y1,x2,y2):
     if (x1<maximum) and (x2<maximum) and (y1<maximum) and (y2<maximum):
         ok_() 
 
-"""def test_lights_turned_on(self,x1,x2,y1,y2):
+def test_lights_turned_on(self,x1,x2,y1,y2):
     for row in range (y1,y2+1):
         for col in range (x1, x2+1):
             self._size[row][col] =1"""
