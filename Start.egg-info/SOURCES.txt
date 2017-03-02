@@ -1,0 +1,7 @@
+Start.egg-info/PKG-INFO
+Start.egg-info/SOURCES.txt
+Start.egg-info/dependency_links.txt
+Start.egg-info/entry_points.txt
+Start.egg-info/top_level.txt
+src/main.py
+src/temp.py

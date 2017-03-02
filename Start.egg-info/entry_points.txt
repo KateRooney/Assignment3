@@ -1,0 +1,3 @@
+[console_scripts]
+Start = src.main:main
+
