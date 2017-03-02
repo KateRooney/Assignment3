@@ -28,7 +28,7 @@ def test_parse_negative_number_with_file_cmd():
 def test_parse_outside_range_as_inside_range():
 #this test check that co-ordinates greater than the grid's area are limited to the grid area
     line='turn on 226,196 through 5999,390'
-    testert=Tester(1000)
+    tester=Tester(1000)
     (cmd, x1, y1, x2, y2)=Tester.execute_command(line)
     eq_(x2, 999, "1000-1, 999 should be returned") 
 

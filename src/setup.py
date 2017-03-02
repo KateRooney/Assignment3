@@ -9,7 +9,6 @@ setup(name="Assignment3",
      licence="none",
      packages=['Assignment3'],
      entry_points={
-         'console_scripts':['solve_led=Assignment3.src.main:main']
-                            }
-     (install_requires=['urllib.request','re', 'sys', 'nose',' argparse'],
+        'console_scripts':['Assignment3=Assignment3.src.main:main']
+        }
       )

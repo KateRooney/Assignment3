@@ -3,12 +3,20 @@ import urllib.request
 import re
 
 class Tester:
-#this is the grid on which the lights are located, or the 2Darray
+#this is the grid on which the lights are located, or the 2D array
     def __init__(self):
         
         self.size =self.get_grid()
         self._grid= [[0]*self.size for _ in range(self.size)]
-     
+    
+    def main(self):
+    #this parses from command line the argument - filename
+        parser=argparse.ArgumentParser()
+        parser.add_argument('--input', help='pass in filename')
+        args=parser.parse_args()
+        filename=args.input
+        return filename
+    
     def turn_on(self,x1,x2,y1,y2):
     #this is the first command that can be called on the grid, turn lights on
     #this gives the elements of the 2D grid the value '1'
@@ -58,10 +66,11 @@ class Tester:
         else:
             return self.parse_filename()
             
-    def parse_uri(self):
+    def parse_uri(self, filename):
         #this is called if the file starts with 'http' - file is parsed to give values for 
         #command (cmd) and the co-ordinates of the lights affected by that command
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        #uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        uri=filename
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
         for line in buffer.split('\n')[1:-1]:
@@ -76,9 +85,10 @@ class Tester:
     #REFERENCE: http://stackoverflow.com/questions/11739386/regex-that-matches-any-positive-
     #or-negative-numeric-value-but-no-characters-or-m   
                             
-    def get_grid(self):
+    def get_grid(self, filename):
     # this parses the size of the grid.          
-        uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        #uri = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+        uri=filename
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
         for line in buffer.split('\n')[0:1]:
@@ -125,14 +135,6 @@ class Tester:
             self.switch(x1,x2,y1,y2)         
         else:
             pass
-   
-        def get_arg():
-        #this parses from command line the argument - filename
-            parser=argparse.ArgumentParser()
-            parser.add_argument('--input', help='Tester help')
-            args=parser.parse_args()
-            filename=args.input
-            return filename
 
 
 grid = Tester()
