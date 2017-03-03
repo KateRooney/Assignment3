@@ -3,16 +3,10 @@ from nose.tools import *
 from main import LEDTester
 
 
-def test_b():
-    line='switch 857,894 through 920,932'
-    m=LEDTester.parse_fileline(line)
-    eq_(m.cmd,"switch", 'cmd is not switch')
-     
-    """def test_parse_file():
-    #this test checks that the commands and arguments parsed to the functions are as expected
-    (cmd, x1, y1, x2, y2)=LEDTester.parse_fileline('switch 857,894 through 920,932')
-    eq_(cmd,"switch", 'cmd is not switch')
-
+def test_parsing():
+    line ="turn on 0,0 through 0,9"
+    (cmd,x1,y1,x2,y2)=LEDTester.parse_fileline(line)
+    eq_(cmd,"turn on", 'cmd is not correct')
     
 def test_parse_mistake_with_file_cmd():
     #this test checks that the commands and arguments parsed to the functions are as expected
@@ -39,5 +33,5 @@ def test_execute_command_illogical_cmd_array_sequence():
     tester.execute_command('turn on 0,0 through 0,4')
     tester.execute_command('turn off 0,0 through 0,7')
     tester.execute_command('switch 0,0 through 0,4')
-    eq_(tester.count(),5)"""
+    eq_(tester.count(),5)
     
