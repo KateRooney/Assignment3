@@ -1,37 +1,33 @@
 import sys
 from nose.tools import *
-from main import LEDTester
+from main import *
 
+def file_exists():
+    file="http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3.txt"
+    size=get_grid(file)
+    eq_(size,1000)
 
-def test_parsing():
-    line ="turn on 0,0 through 0,9"
-    (cmd,x1,y1,x2,y2)=LEDTester.parse_fileline(line)
-    eq_(cmd,"turn on", 'cmd is not correct')
-    
-def test_parse_mistake_with_file_cmd():
-    #this test checks that the commands and arguments parsed to the functions are as expected
-    line='swptch 857,894 through 920,932'
-    (cmd, x1, y1, x2, y2)=LEDTester.parse_uri(line)
-    eq_(cmd,)
-  
-def test_parse_negative_number_with_file_cmd():
+def test_parse_wrong_command_error():
     #this test checks that the negative number in arguments is parsed to the functions as 0
-    tester=LEDTester(10)
-    tester.execute_command('turn on -5,0 through 0,4')
-    eq_(tester.count(),5)  
+    (self.size, cmd, x1, y1, x2, y2)=LEDTester.execute_command(1000,"tyrn on",0,0,0,-4)
+    raise CustomError("cmd not recognised")     
     
-def test_parse_outside_range_as_inside_range():
+def test_parse_negative_number():
+    #this test checks that the negative number in arguments is parsed to the functions as 0
+    (self.size, cmd, x1, y1, x2, y2)=LEDTester.execute_command(1000,"turn on",0,0,0,-4)
+    eq_(y2,0)  
+  
+def test_outside_range():
 #this test check that co-ordinates greater than the grid's area are limited to the grid area
-    line='turn on 226,196 through 5999,390'
-    tester=LEDTester(1000)
-    (cmd, x1, y1, x2, y2)=Tester.execute_command(line)
-    eq_(x2, 999) 
+    (self.size, cmd, x1, y1, x2, y2)=LEDTester.execute_command(1000,"turn on",0,0,0,1004)
+    eq_(y2,999) 
 
-def test_execute_command_illogical_cmd_array_sequence():
+def test_execute_command_on():
 #testing that more lights switched off than are on to begin with parses correctly
-    tester=LEDTester(10)
-    tester.execute_command('turn on 0,0 through 0,4')
-    tester.execute_command('turn off 0,0 through 0,7')
-    tester.execute_command('switch 0,0 through 0,4')
-    eq_(tester.count(),5)
+    (self.size, cmd, x1, y1, x2, y2)=LEDTester.execute_command(1000,"turn on",0,0,0,4)
+    eq_(cmd,"turn on")
+    
+def test_execute_command_switch():   
+    (self.size, cmd, x1, y1, x2, y2)=LEDTester.execute_command(1000,"switch",0,0,0,4)
+    eq_(cmd,"turn on")
     
