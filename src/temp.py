@@ -1,6 +1,6 @@
 import urllib.request
 import re
-filename = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_b_v2.txt"
+filename = "http://claritytrec.ucd.ie/~alawlor/comp30670/input_assign3_d.txt"
 uri=filename
 req = urllib.request.urlopen(uri)
 buffer = req.read().decode('utf-8')

@@ -1,6 +1,7 @@
 import argparse
 import urllib.request
 import re
+
            
 def main():
     
@@ -11,7 +12,7 @@ def main():
     filename=args.input
     tester = LEDTester(filename)
     tester.parse_fileline(filename)
-    tester.countLED()
+    print (filename, tester.countLED())
    
 
 class LEDTester:
@@ -43,7 +44,7 @@ class LEDTester:
                     pass
       
     def switch(self,x1,x2,y1,y2):
-    #this is the second command that can be called on the grid, to switch the lights.
+    #this is the third command that can be called on the grid, to switch the lights.
     #this gives the elements of the 2D grid the value '1' for on or '0' for off.
         for row in range (y1,y2+1):
             for col in range (x1, x2+1):
@@ -61,9 +62,11 @@ class LEDTester:
             for col in range (0, self.size):
                 if self._grid[row][col]==1:
                     count +=1
-        print (count)    
+        return count  
            
     def parse_fileline(self, filename):
+        #this parses in the file and extracts the variable the other methods in the class will use, 
+        #and executes the next command in the flow
         uri=filename
         req = urllib.request.urlopen(uri)
         buffer = req.read().decode('utf-8')
