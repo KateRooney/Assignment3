@@ -118,4 +118,4 @@ class LEDTester:
             self.switch(x1,x2,y1,y2)         
         else:
             pass
-    
+        return y2
